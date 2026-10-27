@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="two">
+  <dl class="stats">
+    <div><dt>Clients enrolled</dt><dd>{{ stats.enrolled }}</dd></div>
+    <div><dt>Reminders sent</dt><dd>{{ stats.sent }}</dd></div>
+    <div><dt>Replies received</dt><dd>{{ stats.replies }}</dd></div>
+    <div><dt>Attended, of visits marked</dt><dd>{{ stats.rate }}</dd></div>
+  </dl>
+  <form class="enrol" method="post" action="/enrol">
+    <h1>Enrol client <span class="sub">Ngolisa moreki</span></h1>
+    <label for="code">First name or ID code</label>
+    <input id="code" name="code" placeholder="Never a diagnosis" autocomplete="off" required>
+    <label for="phone">Phone number</label>
+    <input id="phone" name="phone" type="tel" placeholder="5812 3456" required>
+    <label for="lang">Message language</label>
+    <select id="lang" name="lang"><option value="st">Sesotho</option><option value="en">English</option></select>
+    <label for="day">Visit date</label>
+    <input id="day" type="date" name="day" min="{{ today }}" required>
+    <label class="check"><input type="checkbox" name="consent" required> The client agreed to receive SMS reminders</label>
+    <button class="primary">Save client</button>
+  </form>
+  <section>
+    <form method="get" action="/" role="search">
+      <label for="q" style="margin-top:0">Find a client</label>
+      <input id="q" name="q" type="search" value="{{ q }}" placeholder="Type a name or code">
+      <button style="margin-top:.5rem">Search</button>
+      {% if q %}<a href="/" style="margin-left:.75rem">Clear search</a>{% endif %}
+    </form>
+    {% for g in groups %}
+    <div class="group {{ g.tone }}">
+      <h2>{{ g.title }} <span class="count">{{ g.rows|length }}</span></h2>
+      <p class="sub">{{ g.hint }}</p>
+      {% for a in g.rows %}
+      <div class="row">
+        <div><div class="who"><a href="/client/{{ a.cid }}">{{ a.code }}</a></div><div class="day">{{ a.day }}, {{ a.when }}{% if a.opted_out %}, messages stopped{% endif %}</div></div>
+        <span class="pill s-{{ a.status }}">{{ a.mark }} {{ a.label }}</span>
+        {% if a.status != 'attended' %}<div class="actions">
+          <form method="post" action="/appt/{{ a.id }}/attended"><button class="ok">Attended</button></form>
+          <form method="post" action="/appt/{{ a.id }}/missed"><button class="no">Missed</button></form>
+        </div>{% endif %}
+      </div>
+      {% else %}<p class="empty">{{ g.empty }}</p>{% endfor %}
+    </div>
+    {% endfor %}
+  </section>
+</main>
+{% endblock %}

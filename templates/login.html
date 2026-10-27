@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+<main>
+  <form class="login" method="post">
+    <h1>Staff login</h1>
+    {% if error %}<p class="err" role="alert">{{ error }}</p>{% endif %}
+    <label for="pw">Password</label>
+    <input id="pw" type="password" name="pw" autofocus required>
+    <button class="primary">Log in</button>
+  </form>
+</main>
+{% endblock %}

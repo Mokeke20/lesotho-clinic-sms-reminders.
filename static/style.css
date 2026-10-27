@@ -1,0 +1,42 @@
+:root{--bar:#17324d;--bar-text:#fff;--btn:#17324d;--btn-text:#fff;--paper:#f6f8fa;--panel:#fff;--line:#d5dde5;--text:#1b2733;--muted:#556677;
+--go:#1c6e43;--go-bg:#e0f2e8;--wait:#82540a;--wait-bg:#fcefd3;--bad:#a8231b;--bad-bg:#fbe4e1;--info-bg:#e6edf5;--focus:#1a5fd0;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bar:#0a121a;--bar-text:#e6edf3;--btn:#9cc3ec;--btn-text:#0f1a24;--paper:#0f1a24;--panel:#16232f;--line:#2c3e4f;--text:#e6edf3;--muted:#9fb0c0;
+--go:#6fd19b;--go-bg:#16372a;--wait:#f0c36a;--wait-bg:#3a2c0d;--bad:#ff9a92;--bad-bg:#40191a;--info-bg:#1d3045;--focus:#8ab4f8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+.bar{background:var(--bar);color:var(--bar-text);display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem}
+.bar strong{font-size:1.1rem}.bar a{color:inherit;padding:.5rem}
+main{max-width:1000px;margin:0 auto;padding:1rem;display:grid;gap:1.5rem}
+@media(min-width:800px){main.two{grid-template-columns:320px 1fr;align-items:start}.enrol{position:sticky;top:1rem}}
+h1,h2{line-height:1.2;margin:0 0 .5rem}h1{font-size:1.4rem}h2{font-size:1.15rem}
+.sub{color:var(--muted);font-weight:400;font-size:.92rem}
+.enrol,.login{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--btn);border-radius:8px;padding:1rem}
+.login{max-width:380px;margin:2rem auto}
+label{display:block;font-weight:600;margin:.8rem 0 .25rem}
+input,select{width:100%;min-height:44px;padding:.5rem .65rem;font:inherit;color:inherit;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+.check{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;padding:.6rem;background:var(--info-bg);border-radius:6px}
+.check input{width:22px;min-height:22px;margin-top:.15rem;flex:none}
+button{min-height:44px;padding:.5rem 1rem;font:inherit;font-weight:600;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer}
+button.primary{width:100%;margin-top:1rem;background:var(--btn);color:var(--btn-text);border-color:var(--btn)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.group{margin-bottom:1.6rem}
+.group h2{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--line);padding-bottom:.4rem}
+.group.bad h2{border-color:var(--bad)}.group.wait h2{border-color:var(--wait)}
+.count{font-weight:400;color:var(--muted);font-size:.95rem}
+.row{display:grid;grid-template-columns:1fr auto;gap:.4rem .75rem;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--line)}
+.who{font-weight:600;font-size:1.05rem}.day{color:var(--muted);font-size:.92rem}
+.actions{grid-column:1/-1;display:flex;gap:.5rem}.actions form{flex:1}.actions button{width:100%}
+@media(min-width:620px){.row{grid-template-columns:1fr auto auto}.actions{grid-column:auto}.actions form{flex:none}}
+.pill{display:inline-block;padding:.15rem .65rem;border-radius:99px;font-size:.85rem;font-weight:600;white-space:nowrap;background:var(--info-bg)}
+.s-attended,.s-confirmed{background:var(--go-bg);color:var(--go)}.s-reschedule{background:var(--wait-bg);color:var(--wait)}.s-missed{background:var(--bad-bg);color:var(--bad)}
+.ok{color:var(--go);border-color:var(--go)}.no{color:var(--bad);border-color:var(--bad)}
+.empty{color:var(--muted);padding:.6rem 0}
+.err{background:var(--bad-bg);color:var(--bad);padding:.6rem .8rem;border-radius:6px;font-weight:600}
+
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin:0;padding:0 0 .75rem;border-bottom:1px solid var(--line)}
+@media(min-width:620px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats dt{color:var(--muted);font-size:.88rem}.stats dd{margin:0;font-size:1.5rem;font-weight:700}
+.who a{color:inherit}.back{display:inline-block;padding:.5rem 0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:1rem}
+.danger{border-left:4px solid var(--bad)}button.bad{color:var(--bad);border-color:var(--bad)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:.25rem 1rem;margin:0 0 .5rem}.facts dt{color:var(--muted)}.facts dd{margin:0}

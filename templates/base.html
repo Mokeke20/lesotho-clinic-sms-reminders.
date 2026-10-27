@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clinic reminders</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<header class="bar"><strong>Clinic reminders</strong>{% if session.ok %}<a href="/logout">Log out</a>{% endif %}</header>
+{% block body %}{% endblock %}

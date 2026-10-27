@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block body %}
+<main>
+  <a class="back" href="/">Back to the list</a>
+  <h1>{{ c.code }}</h1>
+  <section class="panel">
+    <dl class="facts">
+      <dt>Phone</dt><dd>{{ masked }}</dd>
+      <dt>Enrolled</dt><dd>{{ c.consent_at }}</dd>
+      <dt>Messages</dt><dd>{% if c.opted_out %}Stopped. No reminders will be sent.{% else %}On{% endif %}</dd>
+    </dl>
+    <form method="post" action="/client/{{ c.id }}/edit">
+      <label for="lang">Message language</label>
+      <select id="lang" name="lang"><option value="st" {{ 'selected' if c.lang == 'st' }}>Sesotho</option><option value="en" {{ 'selected' if c.lang == 'en' }}>English</option></select>
+      <label for="phone">New phone number <span class="sub">(leave blank to keep the current one)</span></label>
+      <input id="phone" name="phone" type="tel" placeholder="5812 3456">
+      <button class="primary">Save changes</button>
+    </form>
+    {% if not c.opted_out %}
+    <form method="post" action="/client/{{ c.id }}/optout"><button class="no" style="margin-top:.75rem">Client asked to stop messages</button></form>
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <h2>Visits</h2>
+    {% for v in visits %}
+    <div class="row">
+      <div><div class="who">{{ v.day }}</div><div class="day">{{ v.when }}</div></div>
+      <span class="pill s-{{ v.status }}">{{ v.mark }} {{ v.label }}</span>
+      <div class="actions">
+        {% for act, txt, cls in (('attended', 'Attended', 'ok'), ('missed', 'Missed', 'no'), ('scheduled', 'Undo', '')) %}
+        <form method="post" action="/appt/{{ v.id }}/{{ act }}"><input type="hidden" name="next" value="/client/{{ c.id }}"><button class="{{ cls }}">{{ txt }}</button></form>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    <form method="post" action="/client/{{ c.id }}/visit">
+      <label for="day">Add a visit</label>
+      <input id="day" type="date" name="day" min="{{ today }}" required>
+      <button class="primary">Add visit</button>
+    </form>
+  </section>
+
+  <section class="panel danger">
+    <h2>Delete this client</h2>
+    <p class="sub">Removes the name or code, phone number, visits and reminder log for good. Use this when a client asks for their data to be removed.</p>
+    <form method="post" action="/client/{{ c.id }}/delete">
+      <label class="check"><input type="checkbox" name="sure" required> I understand this cannot be undone</label>
+      <button class="bad" style="margin-top:.75rem">Delete client and all data</button>
+    </form>
+  </section>
+</main>
+{% endblock %}
